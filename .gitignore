@@ -1,0 +1,7 @@
+# Python and Django files
+venv
+media
+__pycache__
+staticfiles
+.idea
+db.sqlite3
