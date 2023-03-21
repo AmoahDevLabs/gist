@@ -32,11 +32,9 @@ THIRD_PARTY_LIBRARIES = [
     'rest_framework',
     'corsheaders',
     'rest_framework.authtoken',
-    'dj_rest_auth',
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
-    'dj_rest_auth.registration',
+    'drf_spectacular',
 
 ]
 
@@ -146,19 +144,26 @@ AUTHENTICATION_BACKENDS = (
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'The Gist API',
+    'DESCRIPTION': 'A Simple Headless blog api based on DRF',
+    'VERSION': '1.0.0',
 }
 
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8080',
+    'http://localhost:5173',
 )
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8080']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:5173']
 
 SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -169,7 +174,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:8000/api/v1/dj-rest-auth/login/'
-LOGIN_URL = 'http://localhost:8000/api/v1/dj-rest-auth/login/'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:8000/api/v1/token/login/'
+LOGIN_URL = 'http://localhost:8000/api/v1/token/login/'
 
 
